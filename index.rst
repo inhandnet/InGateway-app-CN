@@ -39,7 +39,7 @@ InGateway文档网站导航
       </tr>
     </table>
 
-Device Supervisor App为用户提供了便捷且可靠的数据采集、数据二次处理和数据上云等功能，支持ISO on TCP、ModbusRTU等多种工业协议解析。如果您想快速实现多种工业协议的数据采集并在本地预处理设备数据，处理过滤后的数据能够经过简单配置即可上传至自建MQTT云平台，那么Device Supervisor将是您理想的选择。
+Device Supervisor App为用户提供了便捷且可靠的数据采集、数据二次处理和数据上云等功能，支持ISO on TCP、ModbusRTU等多种工业协议解析。如果您想快速实现多种工业协议的数据采集并在本地预处理设备数据，处理过滤后的数据只需要简单配置后即可对接上传至自建MQTT云平台，那么Device Supervisor将是您理想的选择。
 
 .. toctree::
    :maxdepth: 2
