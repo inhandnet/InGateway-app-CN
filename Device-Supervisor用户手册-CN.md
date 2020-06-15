@@ -1020,7 +1020,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
           wizard_api.write_plc_values(message, ack, ack_tail, timeout = 0.5) #调用wizard_api模块中的write_plc_values方法，将message字典中的数据下发至指定变量；定义该方法的回调函数名称为ack并将ack_tail传递给回调函数ack
   
   def ack(send_result, ack_tail, wizard_api): #定义回调函数ack
-      topic = ack_tail[0] #定义响应主题
+      topic = ack_tail[0] #定义响应主题：response/v1
       if isinstance(send_result,tuple): #检测send_result的数据类型是否为元组，为元组则说明下发超时
           resp_data = {"Status":"timeout", "Data":ack_tail[1]} #定义下发超时的响应数据
       else:
