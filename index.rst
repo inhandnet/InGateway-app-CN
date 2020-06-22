@@ -33,6 +33,7 @@ InGateway文档网站导航
           <ul>
           <li><a href="http://fw.ig.inhandnetworks.com/en/latest/">InGateway User Manual</a></li>
           <li><a href="http://sdk.ig.inhandnetworks.com/en/latest/">Python Developer Documentation</a></li>
+          <li><a href="http://app.ig.inhandnetworks.com/en/latest/">Device Supervisor User Manual</a></li>
           <li><a href="http://docker.ig.inhandnetworks.com/en/latest/">Docker User Manual</a></li>
           </ul>
         </td>
