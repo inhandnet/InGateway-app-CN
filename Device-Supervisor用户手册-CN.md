@@ -9,7 +9,8 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
       - [1.1.2 串口接线](#serial-wiring)
     - [1.2 设置LAN网络参数：在局域网访问PLC](#set-lan-network-parameters)
     - [1.3 设置WAN网络参数：传输数据至MQTT服务器](#set-wan-network-parameters)
-    - [1.4 更新InGateway设备软件版本](#update-ingateway-device-software-version)
+    - [1.4 更新InGateway设备软件版本](#update-ingateway-device-softw
+    - are-version)
   - [2.配置Device Supervisor App](#configuration_device_supervisor_app)
     - [2.1 安装并运行Device Supervisor](#install_and_run_device_supervisor)
     - [2.2 Device Supervisor数据采集配置](#device_supervisor-data-acquisition-configuration)
@@ -110,22 +111,23 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 <a id="set-lan-network-parameters"> </a>  
 
 ### 1.2 设置LAN网络参数：在局域网访问PLC
-- IG902的GE 0/2口的默认IP地址为`192.168.2.1`。为了使IG902能够通过GE 0/2口访问以太网PLC，需要设置GE 0/2口与PLC处于同一网段，设置方法请参考[在局域网访问IG902](https://ingateway-development-docs.readthedocs.io/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig902)。
-- IG501的FE 0/1口的默认IP地址为`192.168.1.1`。为了使IG501能够通过FE 0/1口访问以太网PLC，需要设置FE 0/1口与PLC处于同一网段，设置方法请参考[在局域网访问IG501](https://ingateway-development-docs.readthedocs.io/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig501)。
+- IG902的GE 0/2口的默认IP地址为`192.168.2.1`。为了使IG902能够通过GE 0/2口访问以太网PLC，需要设置GE 0/2口与PLC处于同一网段，设置方法请参考[在局域网访问IG902](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig902)。
+- IG501的FE 0/1口的默认IP地址为`192.168.1.1`。为了使IG501能够通过FE 0/1口访问以太网PLC，需要设置FE 0/1口与PLC处于同一网段，设置方法请参考[在局域网访问IG501](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig501)。
 
 <a id="set-wan-network-parameters"> </a>  
 
 ### 1.3 设置WAN网络参数：传输数据至MQTT服务器
-- 设置IG902 WAN网络参数，请参考[IG902连接Internet](https://ingateway-development-docs.readthedocs.io/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
-- 设置IG501 WAN网络参数，请参考[IG501连接Internet](https://ingateway-development-docs.readthedocs.io/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
+- 设置IG902 WAN网络参数，请参考[IG902连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
+- 设置IG501 WAN网络参数，请参考[IG501连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
 
 <a id="update-ingateway-device-software-version"> </a>  
 
 ### 1.4 更新InGateway设备软件版本
 如需获取InGateway产品最新软件版本及其功能特性信息，请联系客服。如需更新软件版本，请参考如下链接：
-- [更新IG902软件版本](https://ingateway-development-docs.readthedocs.io/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#id1)
+- [更新IG902软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#id1)  
+  
   使用Device Supervisor时，IG902的固件版本应为`V2.0.0.r12537`及以上；SDK版本应为`py3sdk-V1.3.5`及以上。
-- [更新IG501软件版本](https://ingateway-development-docs.readthedocs.io/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#id1)
+- [更新IG501软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#id1)
 
 <a id="configuration_device_supervisor_app"> </a>  
 
@@ -308,6 +310,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   - `分组`：告警所属分组
   - `变量来源`：“使用新变量”即告警变量未在“设备列表”中配置，需要自行设置变量参数（该操作不会在“设备列表”中新增变量）
   - `设备`：告警变量所属设备
+  - `寄存器类型`：变量寄存器类型，包括`I/Q/M/DB`四种类型（ISO on TCP变量）  
   - `地址`：告警变量地址
   - `数据类型`：告警变量数据类型
   - `告警条件`
@@ -326,8 +329,8 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   - `名称`：告警名称
   - `分组`：告警所属分组
   - `变量来源`：“引用已有变量”即告警变量已在“设备列表”中配置，可以输入已有变量名称直接使用
-  - `设备`：告警变量所属设备
-  - `地址`：告警变量的地址
+  - `设备`：告警变量所属设备 
+  - `变量名`：引用的变量名称
   - `告警条件`
     - `判断条件`：支持“=”、“!=”、“>”、“≥”、“<”、“≤”
     - `逻辑条件`
@@ -570,7 +573,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 <a id="高级设置自定义mqtt发布订阅"> </a>  
 
 ### 高级设置（自定义MQTT发布/订阅）
-您可以在“边缘计算 > 设备监控 > 云服务”配置你的MQTT连接参数，并支持通过高级设置功能配置上报数据的MQTT主题、数据来源等参数并支持使用Python语言自定义MQTT发布和订阅主题的数据上报、处理等逻辑。无需二次开发即可实现与多种MQTT服务器进行数据上传和下发。以下将为您说明“高级设置”的使用方法。  
+您可以在“边缘计算 > 设备监控 > 云服务”配置你的MQTT连接参数，通过高级设置功能配置上报数据的MQTT主题、数据来源等参数并支持使用Python语言自定义MQTT发布和订阅主题的数据上报、处理等逻辑。无需二次开发即可实现与多种MQTT服务器进行数据上传和下发。以下将为您说明“高级设置”的使用方法。  
 
   - [发布](#发布)
   - [订阅](#订阅)
@@ -644,7 +647,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 
 - 发布示例1：使用`return`方式上传变量数据  
   
-  本示例实现了使用`return`方式上传变量数据时，将处理后的变量数据使用`return`命令发送给Device Supervisor。Device Supervisor自行根据发布中配置的主题和Qos将变量数据按照采集时间顺序上传至MQTT服务器。如果发送失败则缓存变量数据等待MQTT连接正常后按采集时间顺序上传至MQTT服务器。发布和代码配置示例如下：  
+  本示例实现了使用`return`方式上传变量数据，将处理后的变量数据使用`return`命令发送给Device Supervisor。Device Supervisor自行根据发布中配置的主题和Qos将变量数据按照采集时间顺序上传至MQTT服务器。如果发送失败则缓存变量数据等待MQTT连接正常后按采集时间顺序上传至MQTT服务器。发布和代码配置示例如下：  
     
   ![](images/2020-05-16-09-51-27.png)  
 
@@ -1075,12 +1078,12 @@ Device Supervisor提供的api接口，包含以下方法：
   - `参数3`：qos等级（包括0/1/2三种等级）
 
 - `save_data`：存储数据至数据库方法，被存储的数据将在MQTT连接正常时按先存先传的方式上传至MQTT服务器，使用示例请参考[发布示例3](#pub-example3)和[发布示例4](#pub-example4)。该方法包含以下参数：
-  - `参数1`：需要存储的数据。如果调用`save_data`时只提供了参数1，则`参数1`的数据类型为`dict`，在储存的数据中需具备以`topic`、`qos`和`payload`为键的键值对，当MQTT连接正常后将以存储数据中的`topic`和`qos`将`payload`发送至MQTT服务器。  
+  - `参数1`：需要存储的数据。如果调用`save_data`时只提供了`参数1`，则`参数1`的数据类型为`dict`，在储存的数据中需具备以`topic`、`qos`和`payload`为键的键值对，当MQTT连接正常后将以存储数据中的`topic`和`qos`将`payload`发送至MQTT服务器。  
   - `参数2`（可选参数`group`）：需要存储的数据的分组名称，数据类型为`string`。如果调用`save_data`时提供`参数2`，则将以该分组在云服务中关联的主题和qos上传`参数1`至MQTT服务器。
 
 - `write_plc_values`：下发数据至指定变量方法并支持返回修改结果，使用示例请参考[订阅示例1](#sub-example1)，[订阅示例2](#sub-example2)和[订阅示例3](#sub-example3)。该方法包含以下参数：
   - `参数1`：下发数据，该数据可以有两种形式：
-    - `形式1`：传入一个以变量名称和变量值为键值对的`dict`。使用此方法修改变量数值时，需要确保该变量的名称在设备列表中唯一，数据格式示例如下：
+    - `形式1`：传入一个以变量名称和变量值为键值对的`dict`。使用此方法修改变量数值时，需要确保该变量的名称在“设备列表”中唯一，数据格式示例如下：
       ```python
       {
           "SP1": 12.3,  #变量名称和变量值的键值对
@@ -1197,7 +1200,7 @@ Device Supervisor提供的api接口，包含以下方法：
               'operand1': '30', #告警阈值1
               'combine_method': 'And', #告警条件连接方式。None：空，And：&&，Or：||
               'condition2': 'Lt', #告警条件2
-              'operand2': '50', #告警阈值1
+              'operand2': '50', #告警阈值2
               'var_name': 'Test2', #告警变量名称
               'var_id': '96c93c3094dd11eabd400018050ff046', #告警变量ID
               'size': 1, #告警变量的数据类型为STRING时的字符串长度
@@ -1218,7 +1221,7 @@ Device Supervisor提供的api接口，包含以下方法：
           'vars': [ #变量点表
           {
               'device': 'S7-1200', #变量所属设备的名称
-              'protocol': 'ISO-on-TCP', #变量所示设备的通讯协议
+              'protocol': 'ISO-on-TCP', #变量所属设备的通讯协议
               'data_type': 'BOOL', #变量数据类型
               'register_type': 'I', #变量寄存器类型
               'var_name': 'Test1', #变量名称
@@ -1315,7 +1318,7 @@ Device Supervisor提供的api接口，包含以下方法：
 <a id="其他网关操作"> </a>  
 
 ### 其他网关操作
-关于网关的其他常用操作请查看[IG501快速使用手册](http://doc.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)或[IG902快速使用手册](http://doc.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)。
+关于网关的其他常用操作请查看[IG501快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)或[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)。
 
 <a id="thingsboard参考流程"> </a>  
 
