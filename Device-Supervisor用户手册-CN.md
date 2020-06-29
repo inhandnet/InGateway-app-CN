@@ -9,8 +9,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
       - [1.1.2 串口接线](#serial-wiring)
     - [1.2 设置LAN网络参数：在局域网访问PLC](#set-lan-network-parameters)
     - [1.3 设置WAN网络参数：传输数据至MQTT服务器](#set-wan-network-parameters)
-    - [1.4 更新InGateway设备软件版本](#update-ingateway-device-softw
-    - are-version)
+    - [1.4 更新InGateway设备软件版本](#update-ingateway-device-software-version)
   - [2.配置Device Supervisor App](#configuration_device_supervisor_app)
     - [2.1 安装并运行Device Supervisor](#install_and_run_device_supervisor)
     - [2.2 Device Supervisor数据采集配置](#device_supervisor-data-acquisition-configuration)
