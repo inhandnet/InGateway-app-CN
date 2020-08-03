@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 =====================================
-Device Supervisor说明文档
+DeviceSupervisor(数据采集与数据上云)
 =====================================
 
 ----------------------
