@@ -7,37 +7,39 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
     - [1.1 硬件接线](#hardware-wiring)
       - [1.1.1 以太网接线](#ethernet-wiring)
       - [1.1.2 串口接线](#serial-wiring)
-    - [1.2 设置LAN网络参数：在局域网访问PLC](#set-lan-network-parameters)
-    - [1.3 设置WAN网络参数：传输数据至MQTT服务器](#set-wan-network-parameters)
+    - [1.2 设置InGateway访问PLC](#set-lan-network-parameters)
+    - [1.3 设置InGateway联网](#set-wan-network-parameters)
     - [1.4 更新InGateway设备软件版本](#update-ingateway-device-software-version)
-  - [2.配置Device Supervisor App](#configuration_device_supervisor_app)
+  - [2.Device Supervisor数据采集配置](#configuration_device_supervisor_app)
     - [2.1 安装并运行Device Supervisor](#install_and_run_device_supervisor)
-    - [2.2 Device Supervisor数据采集配置](#device_supervisor-data-acquisition-configuration)
+    - [2.2 数据采集配置](#device_supervisor-data-acquisition-configuration)
       - [2.2.1 添加PLC设备](#add-plc-device)
       - [2.2.2 添加变量](#add-variables)
       - [2.2.3 配置告警策略](#configure-alarm-strategy)
       - [2.2.4 配置分组](#configure-group)
-  - [3.监控PLC数据](#monitor-plc-data)
+  - [3.上报和监控PLC数据](#monitor-plc-data)
     - [3.1 本地监控PLC数据](#local-monitor-plc-data)
       - [3.1.1 本地监控数据采集](#local-monitoring-data-collection)
       - [3.1.2 本地监控告警](#local-monitoring-alarm)
-    - [3.2 在Thingsboard上监控PLC数据](#monitor-plc-data-on-thingsboard)
+    - [3.2 云平台监控PLC数据](#monitor-plc-data-on-thingsboard)
       - [3.2.1 配置Thingsboard](#configure-thingsboard)
-      - [3.2.2 配置云服务](#configure-cloud-service)
-  - [附录](#附录)
-    - [导入导出配置](#导入导出配置)
-    - [高级设置（自定义MQTT发布/订阅）](#高级设置自定义mqtt发布订阅)
-      - [发布](#发布)
-      - [订阅](#订阅)
-      - [Device Supervisor的api接口说明](#device_supervisor_api_description)
-      - [回调函数说明](#callback-function-description)
-    - [全局参数](#全局参数)
-    - [其他网关操作](#其他网关操作)
+      - [3.2.2 配置云服务上报和接收下发数据](#configure-cloud-service)
+  - [附录](#appendix)
+    - [导入导出数据采集配置](#import-and-export-configuration)
+    - [消息管理（自定义MQTT发布/订阅）](#custom-mqtt-publish-and-subscribe)
+      - [配置发布消息](#publish)
+      - [配置订阅消息](#subscribe)
+      - [Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)
+      - [Device Supervisor api回调函数说明](#callback-function-description)
+    - [参数设置](#parameter-settings)
+    - [网关的其他配置](#other-configuration)
     - [Thingsboard参考流程](#thingsboard参考流程)
       - [添加设备和资产](#添加设备和资产)
       - [传输PLC数据到Thingsboard设备](#传输plc数据到thingsboard设备)
       - [配置可视化仪表板](#配置可视化仪表板)
   - [FAQ](#faq)
+    - [查看云服务脚本是否正确](#check-if-the-cloud-service-script-correct)
+    - [查看App的云服务输出是否正确](#check-if-the-app-cloud-service-output-correct)
 
 <a id="overview"> </a>  
 
@@ -54,15 +56,15 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
 整体流程如下图所示：  
 
-![](images/2020-06-03-11-31-04.png)
+![](images/2020-08-10-11-31-44.png)
 
 <a id="prepare-hardware-equipment-and-its-data-collection-environment"> </a>  
 
 ## 1.准备硬件设备及其数据采集环境
 
   - [1.1 硬件接线](#hardware-wiring)
-  - [1.2 设置LAN网络参数：在局域网访问PLC](#set-lan-network-parameters)
-  - [1.3 设置WAN网络参数：传输数据至MQTT服务器](#set-wan-network-parameters)
+  - [1.2 设置InGateway访问PLC](#set-lan-network-parameters)
+  - [1.3 设置InGateway联网](#set-wan-network-parameters)
   - [1.4 更新InGateway设备软件版本](#update-ingateway-device-software-version)
 
 <a id="hardware-wiring"> </a>  
@@ -95,7 +97,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
   IG902串口端子接线说明如下图：  
 
-  ![](images/2020-01-09-18-47-30.png)  
+  ![](images/2020-06-11-15-58-40.png)  
 
 - IG501串口接线  
 
@@ -105,19 +107,19 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
   IG501串口端子接线说明如下图：  
   
-  ![](images/2020-03-11-11-38-45.png)
+  ![](images/2020-05-05-16-09-33.png)
  
 <a id="set-lan-network-parameters"> </a>  
 
-### 1.2 设置LAN网络参数：在局域网访问PLC
-- IG902的GE 0/2口的默认IP地址为`192.168.2.1`。为了使IG902能够通过GE 0/2口访问以太网PLC，需要设置GE 0/2口与PLC处于同一网段，设置方法请参考[在局域网访问IG902](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig902)。
-- IG501的FE 0/1口的默认IP地址为`192.168.1.1`。为了使IG501能够通过FE 0/1口访问以太网PLC，需要设置FE 0/1口与PLC处于同一网段，设置方法请参考[在局域网访问IG501](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig501)。
+### 1.2 设置InGateway访问PLC
+- IG902的GE 0/2口的默认IP地址为`192.168.2.1`。为了使IG902能够通过GE 0/2口访问以太网PLC，需要设置GE 0/2口与PLC处于同一网段，设置方法请参考[访问IG902](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig902)。
+- IG501的FE 0/1口的默认IP地址为`192.168.1.1`。为了使IG501能够通过FE 0/1口访问以太网PLC，需要设置FE 0/1口与PLC处于同一网段，设置方法请参考[访问IG501](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig501)。
 
 <a id="set-wan-network-parameters"> </a>  
 
-### 1.3 设置WAN网络参数：传输数据至MQTT服务器
-- 设置IG902 WAN网络参数，请参考[IG902连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
-- 设置IG501 WAN网络参数，请参考[IG501连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
+### 1.3 设置InGateway联网
+- 设置IG902联网请参考[IG902连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
+- 设置IG501联网请参考[IG501连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
 
 <a id="update-ingateway-device-software-version"> </a>  
 
@@ -130,10 +132,10 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
 <a id="configuration_device_supervisor_app"> </a>  
 
-## 2.配置Device Supervisor App
+## 2.Device Supervisor数据采集配置
 
   - [2.1 安装并运行Device Supervisor](#install_and_run_device_supervisor)
-  - [2.2 Device Supervisor数据采集配置](#device_supervisor-data-acquisition-configuration)
+  - [2.2 数据采集配置](#device_supervisor-data-acquisition-configuration)
 
 
 <a id="install_and_run_device_supervisor"> </a>  
@@ -149,7 +151,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
 <a id="device_supervisor-data-acquisition-configuration"> </a>  
 
-### 2.2 Device Supervisor数据采集配置
+### 2.2 数据采集配置
 
   - [2.2.1 添加PLC设备](#add-plc-device)
   - [2.2.2 添加变量](#add-variables)
@@ -195,9 +197,15 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
   ![](images/2020-05-20-17-36-22.png)  
 
-  如需修改RS232/RS485串口的通讯参数，请在“边缘计算 > 设备监控 > 全局参数”页面修改。修改后所有串口设备的通讯参数将自动修改并按照修改后的通讯参数通讯。  
+  如需修改RS232/RS485串口的通讯参数，请在“边缘计算 > 设备监控 > 参数设置”页面修改。修改后所有串口设备的通讯参数将自动修改并按照修改后的通讯参数通讯。  
 
-  ![](images/2020-05-20-17-36-53.png)
+  ![](images/2020-07-29-10-48-38.png)
+
+- 添加EtherNET/IP设备（**要求App版本为1.2.5及以上**）
+  
+  进入“边缘计算 > 设备监控 > 设备列表”页面，点击“添加PLC”按钮，在添加设备页面选择PLC协议为“EtherNET/IP”并配置PLC的通讯参数。<font color=#FF0000>注意：设备名称不能重复。</font>  
+
+  ![](images/2020-07-29-10-49-38.png)
 
 <a id="add-variables"> </a>  
 
@@ -299,6 +307,27 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   
   ![](images/2020-05-20-18-00-34.png)
 
+- 添加EtherNET/IP变量（**要求App版本为1.2.5及以上**）
+  
+  在“设备列表”页面点击“添加变量”按钮，在添加变量弹出框中配置变量参数<font color=#FF0000>EtherNET/IP变量无须配置数据类型，Device Supervisor会自行判断数据的类型（目前支持的EIP数据类型包括`BOOL`、`SINT`、`INT`、`DINT`、`REAL`、`STRING`）</font>：
+  - 变量名：变量名称<font color=#FF0000>（同一设备下变量名称不能重复）</font>    
+  - 标签：变量的标签  
+  - 小数位：数据类型为浮点数时变量小数点后的数据长度，最大6位   
+  - 读写权限：  
+    - Read：只读，不可写  
+    - Write：只写，不可读  
+    - Read/Write：可读可写  
+  - 采集模式：  
+    - Realtime：按照固定采集间隔采集变量并按照上报间隔上报数据  
+    - Onchange：变量数值变化后才采集并按照上报间隔上报数据  
+  - 单位：变量单位  
+  - 描述：变量描述  
+  - 所属分组：变量所属的采集组  
+
+  以下是添加一个标签名称为`ZB.LEN.16`的变量的例子：  
+
+  ![](images/2020-07-29-10-50-22.png)  
+
 <a id="configure-alarm-strategy"> </a>
 
 #### 2.2.3 配置告警策略
@@ -375,10 +404,10 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   
 <a id="monitor-plc-data"> </a>  
 
-## 3.监控PLC数据 
+## 3.上报和监控PLC数据 
   
   - [3.1 本地监控PLC数据](#local-monitor-plc-data)
-  - [3.2 在Thingsboard上监控PLC数据](#monitor-plc-data-on-thingsboard)
+  - [3.2 云平台监控PLC数据](#monitor-plc-data-on-thingsboard)
 
 <a id="local-monitor-plc-data"> </a>  
 
@@ -418,10 +447,10 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   
 <a id="monitor-plc-data-on-thingsboard"> </a>  
 
-### 3.2 在Thingsboard上监控PLC数据
+### 3.2 云平台监控PLC数据
 
   - [3.2.1 配置Thingsboard](#configure-thingsboard)
-  - [3.2.2 配置云服务](#configure-cloud-service)
+  - [3.2.2 配置云服务上报和接收下发数据](#configure-cloud-service)
 
 <a id="configure-thingsboard"> </a>  
 
@@ -430,21 +459,21 @@ Thingsboard的详细使用方法请查看[Thingsboard入门手册](https://thing
 
 <a id="configure-cloud-service"> </a>  
 
-#### 3.2.2 配置云服务
+#### 3.2.2 配置云服务上报和接收下发数据
 进入“边缘计算 > 设备监控 > 云服务”页面，勾选启用云服务并配置相应的MQTT连接参数，配置完成后点击提交。
+- `类型`：Thingsboard的连接方式为`标准MQTT`。`阿里云IoT`的使用方法请参考[阿里云IoT使用说明](http://app.ig.inhand.com.cn/zh_CN/latest/AliyunIoT-CN.html)；`AWS IoT`的使用方法请参考[AWS IoT使用说明](http://app.ig.inhand.com.cn/zh_CN/latest/AWSIoT-CN.html)；`Azure IoT`的使用方法请参考[Azure IoT使用说明](http://app.ig.inhand.com.cn/zh_CN/latest/AzureIoT-CN.html)
 - `服务器地址`：Thingsboard的demo地址为`demo.thingsboard.io`
-- `端口号`：默认为`1883`
 - `MQTT客户端ID`：任一唯一ID
 - `MQTT用户名`：Thingsboard设备的访问令牌，访问令牌获取方式见[传输PLC数据到Thingsboard设备](#传输plc数据到thingsboard设备)
-- MQTT密码：任意6~32位密码
+- `MQTT密码`：任意6~32位密码
 - 其余项使用默认配置即可  
 
 配置完成后如下图所示：  
 
-![](images/2020-05-20-18-26-32.png)
+![](images/2020-07-27-13-47-55.png)
 
-提交后点击“高级设置”以配置发布和订阅主题。发布和订阅主题的配置方法请参考[高级设置（自定义MQTT发布/订阅）](#高级设置自定义mqtt发布订阅)。以下是示例配置：
-- 发布主题：
+提交后点击“消息管理”以配置发布和订阅消息。发布和订阅消息的配置方法请参考[消息管理（自定义MQTT发布/订阅）](#custom-mqtt-publish-and-subscribe)。以下是示例配置：
+- 发布消息：
   - `主题`：`v1/devices/me/telemetry`
   - `Qos(MQTT)`：`1`
   - `分组类型`：`采集`
@@ -468,7 +497,7 @@ Thingsboard的详细使用方法请查看[Thingsboard入门手册](https://thing
 
   ![](images/2020-05-16-19-36-03.png)
 
-- 订阅主题
+- 订阅消息
   - `主题`：`v1/devices/me/rpc/request/+`
   - `Qos(MQTT)`：`1`
   - `主函数`：入口函数名称，本文档为`ctl_test`
@@ -497,21 +526,21 @@ Thingsboard的详细使用方法请查看[Thingsboard入门手册](https://thing
 
   ![](images/2020-05-16-20-33-45.png)
 
-<a id="附录"> </a>  
+<a id="appendix"> </a>  
 
 ## 附录
 
-  - [导入导出配置](#导入导出配置)
-  - [高级设置（自定义MQTT发布/订阅）](#高级设置自定义mqtt发布订阅)
-  - [全局参数](#全局参数)
-  - [其他网关操作](#其他网关操作)
+  - [导入导出数据采集配置](#import-and-export-configuration)
+  - [消息管理（自定义MQTT发布/订阅）](#custom-mqtt-publish-and-subscribe)
+  - [参数设置](#parameter-settings)
+  - [网关的其他配置](#other-configuration)
   - [Thingsboard参考流程](#thingsboard参考流程)
 
-<a id="导入导出配置"> </a>  
+<a id="import-and-export-configuration"> </a>  
 
-### 导入导出配置
-Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件，您可以通过导入导出配置文件快速实现采集配置。各配置文件内容如下：
-- device.csv：设备配置文件,详细参数如下
+### 导入导出数据采集配置
+Device Supervisor的数据采集配置总共包含四个CSV格式的配置文件（App版本`1.2.5`及以上才支持告警策略配置文件），您可以通过导入导出配置文件快速实现采集配置。各配置文件内容如下：
+- `device.csv`：设备配置文件,详细参数如下
   - `Device Name`：设备名称
   - `Protocol`：通讯协议名称，如`ModbusTCP`
   - `Ip/Serial`：以太网设备填写ip地址；串口设备填写`RS485`或`RS232`
@@ -530,7 +559,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 
   ![](images/2020-05-18-19-35-56.png)  
   
-- var.csv:变量配置文件，详细参数如下
+- `var.csv`:变量配置文件，详细参数如下
   - `Var Name`：变量名称
   - `Device`：变量所属设备
   - `Protocol`：通讯协议名称
@@ -555,7 +584,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 
   ![](images/2020-05-18-19-43-09.png)  
   
-- group.csv:分组配置文件，详细参数如下
+- `group.csv`:分组配置文件，详细参数如下
   - `Group Name`：分组名称
   - `Polling Interval`：采集间隔
   - `Upload Interval`：上传间隔。分组类型为`alarm`时此项为空即可  
@@ -567,22 +596,49 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 
   示例配置如下：  
 
-  ![](images/2020-05-18-19-44-22.png)
+  ![](images/2020-05-18-19-44-22.png)  
 
-<a id="高级设置自定义mqtt发布订阅"> </a>  
+- `warn.csv`：告警策略配置文件，详细参数如下：
+  - `Warn Name`：告警名称
+  - `Group`：告警所属分组
+  - `Quotes`：是否引用变量。0为“使用新变量”，1为“引用已有变量”
+  - `Device`：告警变量所属设备
+  - `Var Name`：引用的变量名称。未引用变量时留空即可
+  - `Condition1`：告警条件1。Eq：等于,Neq：不等于,Gt：大于,Gne：大于等于,Lne：小于等于,Lt：小于
+  - `Operand1`：告警阈值1
+  - `Combine Method`：告警条件连接方式。None：空，And：&&，Or：||
+  - `Condition2`：告警条件2
+  - `Operand2`：告警阈值2
+  - `Alarm Content`：告警描述
+  - `Register Addr`：告警变量地址
+  - `Dbnumber`：告警变量寄存器类型为DB时变量的DB号
+  - `Data Type`：告警变量数据类型。配置EtherNET/IP和OPCUA变量时留空即可
+  - `Symbol`：告警变量标签名称。配置EtherNET/IP变量时需要填写
+  - `Register Type`：告警变量寄存器类型
+  - `Register Bit`：告警变量数据类型为BOOL或BIT时变量的位偏移
+  - `Namespace Index`：告警变量为OPCUA协议时的命名空间索引
+  - `Identifier`：告警变量为OPCUA协议时的识别码
+  - `Identifier Type`：告警变量为OPCUA协议时的ID类型
+  - `Float Repr`：小数位
 
-### 高级设置（自定义MQTT发布/订阅）
-您可以在“边缘计算 > 设备监控 > 云服务”配置你的MQTT连接参数，通过高级设置功能配置上报数据的MQTT主题、数据来源等参数并支持使用Python语言自定义MQTT发布和订阅主题的数据上报、处理等逻辑。无需二次开发即可实现与多种MQTT服务器进行数据上传和下发。以下将为您说明“高级设置”的使用方法。  
+  导出方式为告警策略页面的告警导出。
 
-  - [发布](#发布)
-  - [订阅](#订阅)
-  - [Device Supervisor的api接口说明](#device_supervisor_api_description)
-  - [回调函数说明](#callback-function-description)
+  ![](images/2020-08-07-10-06-49.png)
 
-<a id="发布"> </a>  
+<a id="custom-mqtt-publish-and-subscribe"> </a>  
 
-#### 发布
-自定义发布主题中包含以下配置项：
+### 消息管理（自定义MQTT发布/订阅）
+您可以在“边缘计算 > 设备监控 > 云服务”配置你的MQTT连接参数，通过消息管理功能配置上报数据的MQTT主题、数据来源等参数并支持使用Python语言自定义MQTT发布和订阅消息的数据上报、处理等逻辑。无需二次开发即可实现与多种MQTT服务器进行数据上传和下发。以下将为您说明“消息管理”的使用方法。  
+
+  - [配置发布消息](#publish)
+  - [配置订阅消息](#subscribe)
+  - [Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)
+  - [Device Supervisor api回调函数说明](#callback-function-description)
+
+<a id="publish"> </a>  
+
+#### 配置发布消息
+自定义发布消息中包含以下配置项：
 - `名称`：用户自定义发布名称
 - `主题`：发布主题，与MQTT服务器订阅的主题保持一致
 - `Qos(MQTT)`：发布Qos，建议与MQTT服务器的Qos保持一致
@@ -598,7 +654,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
       ```python
       {
           'timestamp': 1589434519.5458372,  #数据产生时间戳
-          'group_name': 'default'  #采集组名称
+          'group_name': 'default',  #采集组名称
           'values':  #变量数据字典，包含PLC名称，变量名称和变量值
           {
               'S7-1200':  #PLC名称
@@ -614,7 +670,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
                       'status': 1
                   }
               }
-          },
+          }
       }
       ```
 
@@ -622,7 +678,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
       ```python
       {
           'timestamp': 1589434527.3628697,  #告警产生时间戳
-          'group_name': 'warning'  #告警组名称
+          'group_name': 'warning',  #告警组名称
           'values':  #告警数据字典，包含告警名称等告警信息
           {
               'Warn1':  #告警名称
@@ -634,11 +690,11 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
                   'alarm_content': '速度超过30！',  #告警描述
                   'level': 1  #预留字段
               }
-          },
+          }
       }
       ```  
 
-  - `参数2`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明](#device_supervisor_api_description)  
+  - `参数2`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)  
 
 以下是常见的自定义发布方法示例<font color=#FF0000>（请勿将`mqtt_publish`或`save_data`方法与`return`命令同时使用）</font>：
 
@@ -654,8 +710,8 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
   import logging
   """
   在网关中打印日志通常有两种办法。
-  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受全局参数页面中的日志等级参数控制。
-  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受全局参数页面中的日志等级参数控制。
+  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受参数设置页面中的日志等级参数控制。
+  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受参数设置页面中的日志等级参数控制。
   """
   
   def vars_upload_test(data_collect, wizard_api): #定义发布主函数
@@ -685,8 +741,8 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
   import logging
   """
   在网关中打印日志通常有两种办法。
-  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受全局参数页面中的日志等级参数控制。
-  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受全局参数页面中的日志等级参数控制。
+  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受参数设置页面中的日志等级参数控制。
+  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受参数设置页面中的日志等级参数控制。
   """
   
   def alarms_upload_test(data_collect, wizard_api): #定义发布主函数
@@ -718,8 +774,8 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
   from datetime import datetime
   """
   在网关中打印日志通常有两种办法。
-  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受全局参数页面中的日志等级参数控制。
-  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受全局参数页面中的日志等级参数控制。
+  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受参数设置页面中的日志等级参数控制。
+  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受参数设置页面中的日志等级参数控制。
   """
   
   def vars_cache_test(data_collect, wizard_api): #定义发布主函数
@@ -755,8 +811,8 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
   from datetime import datetime
   """
   在网关中打印日志通常有两种办法。
-  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受全局参数页面中的日志等级参数控制。
-  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受全局参数页面中的日志等级参数控制。
+  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受参数设置页面中的日志等级参数控制。
+  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受参数设置页面中的日志等级参数控制。
   """
   
   def vars_cache_test(data_collect, wizard_api): #定义发布主函数
@@ -781,7 +837,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 
 - 发布示例5：使用`get_tag_config`获取设备、变量和告警点表  
   
-  本示例实现了每次重启App时使用`get_tag_config`方法获取设备、变量和告警点表并分别上传至MQTT服务器。发布和代码配置示例如下：  
+  本示例实现了每次重启App时使用`get_tag_config`方法获取设备、变量和告警点表并分别上传至MQTT服务器<font color=#FF0000>（该示例仅适用于获取Modbus以及ISO on TCP的Rack/slot模式点表）</font>。发布和代码配置示例如下：  
   
   ![](images/2020-05-16-15-04-00.png)
 
@@ -790,8 +846,8 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
   import json
   """
   在网关中打印日志通常有两种办法。
-  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受全局参数页面中的日志等级参数控制。
-  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受全局参数页面中的日志等级参数控制。
+  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受参数设置页面中的日志等级参数控制。
+  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受参数设置页面中的日志等级参数控制。
   """
   
   IS_UPLOAD_CONFIG = True  #定义变量用于判断是否需要获取并上传点表
@@ -902,9 +958,9 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 
 <a id="pub-example6"> </a>
 
-- 发布示例6：使用`get_global_parameter`获取全局参数设置  
+- 发布示例6：使用`get_global_parameter`获取参数设置中的自定义参数  
   
-  本示例实现了获取“全局参数”中设置的参数`device_id`，并通过通配符`${device_id}`的配置方式配置MQTT主题。发布和代码配置示例如下：  
+  本示例实现了获取“参数设置”中的自定义参数`device_id`，并通过通配符`${device_id}`的配置方式配置MQTT主题。发布和代码配置示例如下：  
 
   ![](images/2020-05-16-15-34-08.png)  
 
@@ -914,13 +970,13 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
   import logging
   """
   在网关中打印日志通常有两种办法。
-  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受全局参数页面中的日志等级参数控制。
-  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受全局参数页面中的日志等级参数控制。
+  1.import logging：使用logging.info(XXX)打印日志，该方法的日志显示不受参数设置页面中的日志等级参数控制。
+  2.from common.Logger import logger：使用logger.info(XXX)打印日志，该方法的日志显示受参数设置页面中的日志等级参数控制。
   """
   
   def vars_upload_test(data_collect, wizard_api): #定义发布主函数
-      global_parameter = wizard_api.get_global_parameter() #定义全局参数变量
-      logging.info(global_parameter) #打印全局参数变量
+      global_parameter = wizard_api.get_global_parameter() #定义参数设置变量
+      logging.info(global_parameter) #打印参数设置变量
       value_list = [] #定义数据列表
       for device, val_dict in data_collect['values'].items(): #遍历values字典，该字典中包含设备名称和设备下的变量数据
           value_dict = { #自定义数据字典
@@ -936,10 +992,10 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
       return value_list #将value_list发送给App，App将自行按照采集时间顺序上传至MQTT服务器。如果发送失败则缓存数据等待连接恢复后按时间顺序上传至MQTT服务器
   ```
 
-<a id="订阅"> </a>  
+<a id="subscribe"> </a>  
 
-#### 订阅
-自定义订阅中包含以下项：
+#### 配置订阅消息
+自定义订阅消息中包含以下项：
 - `名称`：自定义订阅名称
 - `主题`：订阅主题，与MQTT服务器发布的数据主题保持一致
 - `Qos(MQTT)`：订阅Qos，建议与MQTT服务器的Qos保持一致
@@ -947,7 +1003,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 - `脚本`：使用Python代码自定义组包和处理逻辑，订阅中的主函数参数包括：
   - `参数1`：该参数为接收到的主题，数据类型为`string`
   - `参数2`：该参数为接收到的数据，数据类型为`string`
-  - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明](#device_supervisor_api_description)  
+  - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)  
 
 以下是三个常见的自定义订阅方法示例：
 
@@ -1069,7 +1125,7 @@ Device Supervisor的数据采集配置总共包含三个CSV格式的配置文件
 
 <a id="device_supervisor_api_description"> </a>  
 
-#### Device Supervisor的api接口说明
+#### Device Supervisor的api接口说明（wizard_api）
 Device Supervisor提供的api接口，包含以下方法：
 - `mqtt_publish`：MQTT发布消息方法，用于将指定数据通过相应的主题发送到MQTT服务器并返回发送结果：发送成功（True），发送失败（False），使用示例请参考[发布示例3](#pub-example3)。该方法包含以下参数：  
   - `参数1`：MQTT主题，数据类型为`string`。通过至该主题发送数据到MQTT服务器  
@@ -1101,7 +1157,7 @@ Device Supervisor提供的api接口，包含以下方法：
       ```
   - `参数2`（可选参数`callback`）：返回修改结果的回调函数名称，回调函数说明见[write_plc_values回调函数说明](#write-plc-values-callback-function-description)  
   - `参数3`（可选参数`tail`）：已有`参数2`时，可将需要传递给`参数2`的数据赋值给`参数3`
-  - `参数4`（可选参数`timeout`）：写入超时时间，数据类型为`整数`。默认为60秒
+  - `参数4`（可选参数`timeout`）：写入超时时间，数据类型为`整数`或`浮点数`。默认为60秒
 
 - `get_tag_config`：获取点表配置方法，点表配置包括PLC、变量、分组和告警配置，使用示例请参考[发布示例5](#pub-example5)。该方法包含以下参数：
   - `参数1`：获取点表配置的回调函数的名称，回调函数说明见[get_tag_config回调函数说明](#get-tag-config-callback-function-description)
@@ -1113,7 +1169,7 @@ Device Supervisor提供的api接口，包含以下方法：
   - `参数2`（可选参数`tail`）：可将需要传递给`参数1`的数据赋值给`参数2`
   - `参数3`（可选参数`timeout`）：立即读取所有变量的超时时间，数据类型为`整数`。默认为60秒
 
-- `get_global_parameter`：获取全局参数设置方法，使用示例请参考[发布示例6](#pub-example6)。该方法会返回一个全局参数设置的字典，数据格式如下：
+- `get_global_parameter`：获取参数设置设置方法，使用示例请参考[发布示例6](#pub-example6)。该方法会返回一个参数设置设置的字典，数据格式如下：
   
   ```python
   {
@@ -1121,13 +1177,13 @@ Device Supervisor提供的api接口，包含以下方法：
       'log_level': 'INFO', #系统参数，日志等级
       'catch_recording': 100000, #系统参数，最大可缓存的变量数据的MQTT消息数量
       'warning_recording': 2000, #系统参数，最大可缓存的告警数据的MQTT消息数量
-      'device_id': '1' #自定义全局参数
+      'device_id': '1' #自定义参数
   }
   ```
 
 <a id="callback-function-description"> </a>  
 
-#### 回调函数说明
+#### Device Supervisor api回调函数说明
 
 <a id="write-plc-values-callback-function-description"> </a>  
 
@@ -1148,7 +1204,7 @@ Device Supervisor提供的api接口，包含以下方法：
             'result': 'OK', #写入结果。写入成功：OK，写入失败：Failed
             'error': '' #写入错误，当写入成功时该项为空
         }]
-        ```;
+        ```
       - 写入失败时返回值格式为：
         ```python
         [
@@ -1161,13 +1217,13 @@ Device Supervisor提供的api接口，包含以下方法：
         }]
         ```
     - `参数2`：`write_plc_values`方法中配置的`参数3`，如果未在`write_plc_values`中配置`参数3`，则该参数为`None`
-    - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明](#device_supervisor_api_description)  
+    - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)  
 
 <a id="get-tag-config-callback-function-description"> </a>  
 
 - `get_tag_config`回调函数说明  
 `get_tag_config`回调函数包含以下参数，使用示例请参考[发布示例5](#pub-example5)：
-    - `参数1`: `get_tag_config`方法返回的点表配置。获取点表超时时返回值为`("error", -110, "timeout")`，正常返回点表配置时数据格式如下：  
+    - `参数1`: `get_tag_config`方法返回的点表配置。获取点表超时时返回值为`("error", -110, "timeout")`，正常返回点表配置时数据格式如下（以ISO-on-TCP协议的Rack/slot模式为例）：  
       ```python
       {
           'devices': [ #设备点表
@@ -1260,7 +1316,7 @@ Device Supervisor提供的api接口，包含以下方法：
       ```
 
     - `参数2`：`get_tag_config`方法中配置的`参数3`，如果未在`get_tag_config`中配置`参数3`，则该参数为`None`
-    - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明](#device_supervisor_api_description)  
+    - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)  
 
 <a id="recall-data-callback-function-description"> </a>  
 
@@ -1291,32 +1347,33 @@ Device Supervisor提供的api接口，包含以下方法：
 
     - `参数2`：`recall_data`方法中配置的`参数3`，如果未在`recall_data`中配置`参数3`，则该参数为`None`
 
-    - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明](#device_supervisor_api_description)   
+    - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)   
 
-<a id="全局参数"> </a>  
+<a id="parameter-settings"> </a>  
 
-### 全局参数
-你可以访问“边缘计算 > 设备监控 > 全局参数”页面配置Device Supervisor的通用设置。  
-- 全局参数  
-  你可以在全局参数中设置Device Supervisor的系统参数或者自行添加通配符参数  
+### 参数设置
+你可以访问“边缘计算 > 设备监控 > 参数设置”页面配置Device Supervisor的通用设置。  
+- 参数设置  
+  你可以在参数设置中设置Device Supervisor的系统参数或者自行添加通配符参数  
   - `catch_recording`：最大可缓存的变量数据的MQTT消息数量，默认为`100000`  
   - `log_level`：日志等级，设置不同的日志等级可以在Device Supervisor的日志中看到不同等级的日志信息。默认为`INFO`  
   - `warning_recording`：最大可缓存的告警数据的MQTT消息数量，默认为`2000`  
-  - `自定义通配符`：你可以自行添加全局参数作为云服务中的通配符使用。使用方法为`${参数名称}`，如下图所示：  
+  - `自定义通配符`：你可以自行添加自定义参数作为云服务中的通配符使用。使用方法为`${参数名称}`，如下图所示：  
   
-    ![](images/2020-05-16-15-34-08.png)  
+    ![](images/2020-07-27-11-30-18.png)  
 
     ![](images/2020-05-16-15-20-49.png)   
 
 - 串口设置  
+
   你可以在串口设置中配置RS485和RS232串口的通讯参数，如下图所示：  
 
   ![](images/2020-05-18-17-14-19.png)  
 
 
-<a id="其他网关操作"> </a>  
+<a id="other-configuration"> </a>  
 
-### 其他网关操作
+### 网关的其他配置
 关于网关的其他常用操作请查看[IG501快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)或[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)。
 
 <a id="thingsboard参考流程"> </a>  
@@ -1460,7 +1517,13 @@ Device Supervisor提供的api接口，包含以下方法：
 <a id="FAQ"> </a>  
 
 ## FAQ  
-- 查看云服务脚本是否正确  
+
+- [查看云服务脚本是否正确](#check-if-the-cloud-service-script-correct)
+- [查看App的云服务输出是否正确](#check-if-the-app-cloud-service-output-correct)
+
+<a id="check-if-the-cloud-service-script-correct"> </a>  
+
+### 查看云服务脚本是否正确  
   打开Device Supervisor App日志。脚本编写完成并点击“确定”后，通过日志中的`Build module: <主函数名称>, type: <publish/subscribe>`信息查看脚本是否构建成功。  
   
   脚本构建成功如下图所示：  
@@ -1471,7 +1534,9 @@ Device Supervisor提供的api接口，包含以下方法：
 
   ![](images/2020-05-18-17-22-30.png)  
 
-- 查看App的云服务输出是否正确  
+<a id="check-if-the-app-cloud-service-output-correct"> </a>  
+
+### 查看App的云服务输出是否正确  
   您可以使用使用`logger`和`logging`输出重要日志。下图是在运行脚本中的第6行使用了`logging.info`方法，在日志中可以通过搜索`<string> 6`查看输出结果是否符合预期。  
   
   ![](images/2020-05-18-17-25-03.png) 
