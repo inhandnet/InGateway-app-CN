@@ -1,5 +1,6 @@
 # 阿里云IoT使用说明
 越来越多的企业选择将IoT设备迁移上云。为此，阿里云提供企业从自建MQTT集群迁移到阿里云物联网平台（以下简称阿里云IoT）的解决方案，为设备提供安全可靠的连接通信能力，向下连接海量设备，支撑设备数据采集上云；向上提供云端API，服务端通过调用云端API将指令下发至设备端，实现远程控制。  
+
 为便于用户实现设备与阿里云IoT的对接，边缘计算网关InGateway902（以下简称IG902）提供Device Supervisor App（以下简称Device Supervisor）对接阿里云IoT。本文档将以IG902为例为你说明如何实现Device Supervisor与阿里云IoT的业务数据上报和配置数据下发。
 
   - [先决条件](#prerequisites)
@@ -34,7 +35,7 @@
     - IG902：`IG9-V2.0.0.r12754`及以上
     - IG501：`IG5-V2.0.0.r12884`及以上
   - SDK版本
-    - IG902：`py3sdk-V1.3.9_Edge-IG9`及以上
+    - IG902：`py3sdk-V1.4.0_Edge-IG9`及以上
     - IG501：`py3sdk-V1.4.0_Edge-IG5`及以上
   - App版本：`device_supervisor-V1.2.4`及以上
 
@@ -156,7 +157,7 @@
 <a id="configure-data-collection"> </a>
 
 #### 1.2.2 配置数据采集
-Device Supervisor详细的基础数据采集配置见[Device Supervisor App用户手册](http://app.ig.inhand.com.cn/zh_CN/latest/)。本文档配置采集了`Custom_topic`和`LightStatus`变量以及一条告警，分别用于[自定义Topic](#customer-topic)、[属性上报](#property-report)和[事件上报](#event-report)。
+Device Supervisor详细的基础数据采集配置见[Device Supervisor App用户手册](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html)。本文档配置采集了`Custom_topic`和`LightStatus`变量以及一条告警，分别用于[自定义Topic](#customer-topic)、[属性上报](#property-report)和[事件上报](#event-report)。
 
 ![](images/2020-07-15-10-13-23.png)
 
