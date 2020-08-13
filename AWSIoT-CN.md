@@ -230,17 +230,17 @@ Device Supervisor详细的基础数据采集配置见[Device Supervisor App用�
   ```
 
   发布消息配置参数说明如下：  
-- `名称`：用户自定义发布名称
-- `主题`：发布主题，与MQTT服务器订阅的主题保持一致
-- `Qos(MQTT)`：发布Qos，建议与MQTT服务器的Qos保持一致
-  - `0`：只发送一次消息，不进行重试  
-  - `1`：最少发送一次消息，确保消息到达MQTT服务器
-- `分组类型`：发布变量数据时请选择“采集”，随后在`分组`中仅能选择“采集组”；发布告警数据时请选择“告警”，随后在`分组`中仅能选择“告警组”
-- `分组`：选择相应的分组后，分组下所有变量通过该发布配置将数据上传至MQTT服务器；可选择多个分组,当选择多个分组时，按照分组的采集间隔分别对各分组下的变量执行发布中的脚本逻辑。<font color=#FF0000>分组中必须包含变量，否则不会执行发布中的脚本逻辑</font>
-- `主函数`：主函数名称，即入口函数名称，与脚本中的入口函数名称保持一致
-- `脚本`：使用Python代码自定义组包和处理逻辑，主函数参数包括：
-  - `参数1`：同[标准MQTT-发布](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html#id18)主函数中的`参数1`
-  - `参数2`：Device Supervisor的AWS IoT api接口，参数说明见[Device Supervisor的AWS IoT api接口说明](#aws-iot-api-interface-description-of-device-supervisor)
+  - `名称`：用户自定义发布名称
+  - `主题`：发布主题，与MQTT服务器订阅的主题保持一致
+  - `Qos(MQTT)`：发布Qos，建议与MQTT服务器的Qos保持一致
+    - `0`：只发送一次消息，不进行重试  
+    - `1`：最少发送一次消息，确保消息到达MQTT服务器
+  - `分组类型`：发布变量数据时请选择“采集”，随后在`分组`中仅能选择“采集组”；发布告警数据时请选择“告警”，随后在`分组`中仅能选择“告警组”
+  - `分组`：选择相应的分组后，分组下所有变量通过该发布配置将数据上传至MQTT服务器；可选择多个分组,当选择多个分组时，按照分组的采集间隔分别对各分组下的变量执行发布中的脚本逻辑。<font color=#FF0000>分组中必须包含变量，否则不会执行发布中的脚本逻辑</font>
+  - `主函数`：主函数名称，即入口函数名称，与脚本中的入口函数名称保持一致
+  - `脚本`：使用Python代码自定义组包和处理逻辑，主函数参数包括：
+    - `参数1`：同[标准MQTT-发布](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html#id18)主函数中的`参数1`
+    - `参数2`：Device Supervisor的AWS IoT api接口，参数说明见[Device Supervisor的AWS IoT api接口说明](#aws-iot-api-interface-description-of-device-supervisor)
 
 - 步骤2：在AWS IoT中订阅消息
   
