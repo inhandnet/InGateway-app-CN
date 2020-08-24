@@ -126,7 +126,7 @@ AWS IoT 可在连接了 Internet 的设备（如传感器、致动器、嵌入�
 
     ![](images/2020-07-28-14-50-51.png)  
 
-    策略附件成功如下图所示：  
+    策略附加成功如下图所示：  
 
     ![](images/2020-07-28-14-51-08.png)
  
@@ -156,12 +156,13 @@ AWS IoT 可在连接了 Internet 的设备（如传感器、致动器、嵌入�
 <a id="basic-configuration"> </a>
 
 #### 1.2.1 基础配置
-如何配置IG902联网、更新软件版本等操作请参考[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)。  
+- 如何配置IG902联网、更新软件版本等操作请参考[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html)。  
+- 如何配置IG501联网、更新软件版本等操作请参考[IG501快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html)。
 
 <a id="configure-data-collection"> </a>
 
 #### 1.2.2 配置数据采集
-Device Supervisor详细的基础数据采集配置见[Device Supervisor App用户手册](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html)。本文档的数据采集配置如下：
+Device Supervisor详细的基础数据采集配置见[Device Supervisor App用户手册](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor-User-Manual-CN.html)。本文档的数据采集配置如下：
 
 ![](images/2020-07-28-14-56-34.png)  
 
@@ -192,6 +193,7 @@ Device Supervisor详细的基础数据采集配置见[Device Supervisor App用�
 - `物品的证书`：导入创建物品时下载的物品证书或自定义证书
 - `私有密钥`：导入创建物品时下载的私有秘钥或自定义私有秘钥
 - `CA证书`：导入用于服务器身份验证的CA证书，你可以从[这里](https://docs.aws.amazon.com/zh_cn/iot/latest/developerguide/server-authentication.html)下载相应的CA证书（建议使用`Amazon Root CA 1`或`Starfield 根 CA 证书`）。<font color=#FF0000>目前不支持“Amazon Root CA 3”证书</font>  
+- 其余项使用默认配置即可
 
   ![](images/2020-08-05-16-18-44.png)
 
@@ -239,7 +241,7 @@ Device Supervisor详细的基础数据采集配置见[Device Supervisor App用�
   - `分组`：选择相应的分组后，分组下所有变量通过该发布配置将数据上传至MQTT服务器；可选择多个分组,当选择多个分组时，按照分组的采集间隔分别对各分组下的变量执行发布中的脚本逻辑。<font color=#FF0000>分组中必须包含变量，否则不会执行发布中的脚本逻辑</font>
   - `主函数`：主函数名称，即入口函数名称，与脚本中的入口函数名称保持一致
   - `脚本`：使用Python代码自定义组包和处理逻辑，主函数参数包括：
-    - `参数1`：同[标准MQTT-发布](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html#id18)主函数中的`参数1`
+    - `参数1`：同[标准MQTT-发布](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor-User-Manual-CN.html#publish)主函数中的`参数1`
     - `参数2`：Device Supervisor的AWS IoT api接口，参数说明见[Device Supervisor的AWS IoT api接口说明](#aws-iot-api-interface-description-of-device-supervisor)
 
 - 步骤2：在AWS IoT中订阅消息
@@ -297,7 +299,7 @@ Device Supervisor详细的基础数据采集配置见[Device Supervisor App用�
 <a id="aws-iot-api-interface-description-of-device-supervisor"> </a>
 
 ### Device Supervisor的AWS IoT api接口说明
-`wizard_api`的基础配置方法请参考[Device Supervisor的api接口说明](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html#device-supervisorapi)。当云服务类型为`AWS IoT`时，`wizard_api`额外提供以下方法： 
+`wizard_api`的基础配置方法请参考[Device Supervisor的api接口说明](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor-User-Manual-CN.html#device_supervisor_api_description)。当云服务类型为`AWS IoT`时，`wizard_api`额外提供以下方法： 
 
 - `awsiot_publish(topic, payload, qos)`
   - `方法说明`：数据上报方法
