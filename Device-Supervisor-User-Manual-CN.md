@@ -112,24 +112,25 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 <a id="set-lan-network-parameters"> </a>  
 
 ### 1.2 设置InGateway访问PLC
-- IG902的GE 0/2口的默认IP地址为`192.168.2.1`。为了使IG902能够通过GE 0/2口访问以太网PLC，需要设置GE 0/2口与PLC处于同一网段，设置方法请参考[访问IG902](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig902)。
-- IG501的FE 0/1口的默认IP地址为`192.168.1.1`。为了使IG501能够通过FE 0/1口访问以太网PLC，需要设置FE 0/1口与PLC处于同一网段，设置方法请参考[访问IG501](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#lan-ig501)。
+- IG902的GE 0/2口的默认IP地址为`192.168.2.1`。为了使IG902能够通过GE 0/2口访问以太网PLC，需要设置GE 0/2口与PLC处于同一网段，设置方法请参考[访问IG902](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#set-lan-parameters)。
+- IG501的FE 0/1口的默认IP地址为`192.168.1.1`。为了使IG501能够通过FE 0/1口访问以太网PLC，需要设置FE 0/1口与PLC处于同一网段，设置方法请参考[访问IG501](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html#set-lan-parameters)。
 
 <a id="set-wan-network-parameters"> </a>  
 
 ### 1.3 设置InGateway联网
-- 设置IG902联网请参考[IG902连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
-- 设置IG501联网请参考[IG501连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#wan-internet)。
+- 设置IG902联网请参考[IG902连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#set-wan-parameters)。
+- 设置IG501联网请参考[IG501连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html#set-wan-parameters)。
 
 <a id="update-ingateway-device-software-version"> </a>  
 
 ### 1.4 更新InGateway设备软件版本
 如需获取InGateway产品最新软件版本及其功能特性信息，请联系客服。如需更新软件版本，请参考如下链接：
-- [更新IG902软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#id1)  
+- [更新IG902软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#update-the-software)  
   
   使用Device Supervisor时，IG902的固件版本应为`V2.0.0.r12537`及以上；SDK版本应为`py3sdk-V1.3.5`及以上。
-- [更新IG501软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#id1)
-
+- [更新IG501软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html#update-the-software)
+  
+  使用Device Supervisor时，IG501的固件版本应为`V2.0.0.r12884`及以上；SDK版本应为`py3sdk-V1.4.0`及以上。
 <a id="configuration_device_supervisor_app"> </a>  
 
 ## 2.Device Supervisor数据采集配置
@@ -141,11 +142,11 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 <a id="install_and_run_device_supervisor"> </a>  
 
 ### 2.1 安装并运行Device Supervisor
-- IG902如何安装并运行Python App请参考[IG902安装和运行Python App](https://ingateway-development-docs.readthedocs.io/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#python-app)，Device Supervisor正常运行后如下图所示：  
+- IG902如何安装并运行Python App请参考[IG902安装和运行Python App](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#install-and-run-python-app)，Device Supervisor正常运行后如下图所示：  
   
   ![](images/2020-05-21-20-00-38.png)  
 
-- IG501如何安装并运行Python App请参考[IG501安装和运行Python App](https://ingateway-development-docs.readthedocs.io/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html#python-app)，Device Supervisor正常运行后如下图所示：  
+- IG501如何安装并运行Python App请参考[IG501安装和运行Python App](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html#install-and-run-python-app)，Device Supervisor正常运行后如下图所示：  
   
   ![](images/2020-05-21-20-00-38.png)  
 
@@ -1374,7 +1375,7 @@ Device Supervisor提供的api接口，包含以下方法：
 <a id="other-configuration"> </a>  
 
 ### 网关的其他配置
-关于网关的其他常用操作请查看[IG501快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)或[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)。
+关于网关的其他常用操作请查看[IG501快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html)或[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html)。
 
 <a id="thingsboard参考流程"> </a>  
 
