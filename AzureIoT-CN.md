@@ -19,7 +19,8 @@ Azure IoT Hub（以下简称Azure IoT）托管服务在云中进行托管，充�
     - [发布Azure IoT消息示例](#publish-azure-iot-message-example)
     - [订阅Azure IoT消息示例](#sample-subscription-to-azure-iot-messages)
     - [Device Supervisor的Azure IoT api接口说明](#azure-iot-api-interface-description-of-device-supervisor)
-
+  - [FAQ](#faq)
+    - [Q1：连接Azure IoT时，出现频繁连接正常一段时间后又断开](#q1)
 
 <a id="prerequisites"> </a>
 
@@ -96,12 +97,13 @@ Azure IoT Hub（以下简称Azure IoT）托管服务在云中进行托管，充�
 <a id="basic-configuration"> </a>
 
 #### 1.2.1 基础配置
-如何配置IG902联网、更新软件版本等操作请参考[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html)。  
+- 如何配置IG902联网、更新软件版本等操作请参考[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html)。  
+- 如何配置IG501联网、更新软件版本等操作请参考[IG501快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html)。  
 
 <a id="configure-data-collection"> </a>
 
 #### 1.2.2 配置数据采集
-Device Supervisor详细的基础数据采集配置见[Device Supervisor App用户手册](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html)。本文档的数据采集配置如下：
+Device Supervisor详细的基础数据采集配置见[Device Supervisor App用户手册](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor-User-Manual-CN.html)。本文档的数据采集配置如下：
 
 ![](images/2020-07-31-18-45-24.png)  
 
@@ -124,9 +126,9 @@ Device Supervisor详细的基础数据采集配置见[Device Supervisor App用�
 - `类型`：连接Azure IoT时，选择“Azure IoT”
 - `连接字符串`：Azure IoT Device的主连接字符串，你可以从Azure IoT的IoT Hub中选择相应的设备并复制主连接字符串到此处
 
-![](images/2020-07-28-17-42-06.png)  
+  ![](images/2020-07-28-17-42-06.png)  
 
-![](images/2020-07-28-17-42-40.png)  
+  ![](images/2020-07-28-17-42-40.png)  
   
 <a id="publish-to-azure-iot"> </a>
 
@@ -166,7 +168,7 @@ Device Supervisor详细的基础数据采集配置见[Device Supervisor App用�
   - `分组`：选择相应的分组后，分组下所有变量通过该发布配置将数据上传至MQTT服务器；可选择多个分组,当选择多个分组时，按照分组的采集间隔分别对各分组下的变量执行发布中的脚本逻辑。<font color=#FF0000>分组中必须包含变量，否则不会执行发布中的脚本逻辑</font>
   - `主函数`：主函数名称，即入口函数名称，与脚本中的入口函数名称保持一致
   - `脚本`：使用Python代码自定义组包和处理逻辑，主函数参数包括：
-    - `参数1`：同[标准MQTT-发布](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html#id18)主函数中的`参数1`
+    - `参数1`：同[标准MQTT-发布](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor-User-Manual-CN.html#publish)主函数中的`参数1`
     - `参数2`：Device Supervisor的Azure IoT api接口，参数说明见[Device Supervisor的Azure IoT api接口说明](#azure-iot-api-interface-description-of-device-supervisor)
 
 
@@ -370,7 +372,7 @@ Device Supervisor详细的基础数据采集配置见[Device Supervisor App用�
 <a id="azure-iot-api-interface-description-of-device-supervisor"> </a>
 
 ### Device Supervisor的Azure IoT api接口说明
-`wizard_api`的基础配置方法请参考[Device Supervisor的api接口说明](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-CN.html#device-supervisorapi)<font color=#FF0000>（注意：如需存储数据，只能参考[发布示例2](#save-data)即通过组名存储数据）</font>。当云服务类型为`Azure IoT`时，`wizard_api`额外提供以下方法：  
+`wizard_api`的基础配置方法请参考[Device Supervisor的api接口说明](http://app.ig.inhand.com.cn/zh_CN/latest/Device-Supervisor-User-Manual-CN.html#device_supervisor_api_description)<font color=#FF0000>（注意：如需存储数据，只能参考[发布示例2](#save-data)即通过组名存储数据）</font>。当云服务类型为`Azure IoT`时，`wizard_api`额外提供以下方法：  
 
 - `send_message_to_cloud`  
   - `方法说明`：数据上报方法
@@ -424,6 +426,9 @@ Device Supervisor详细的基础数据采集配置见[Device Supervisor App用�
       ```
 
 ## FAQ
+
+<a id="q1"> </a>
+
 ### Q1：连接Azure IoT时，出现频繁连接正常一段时间后又断开
 
 A1：查看App运行日志，发现日志中有`Paho returned rc==1`。
