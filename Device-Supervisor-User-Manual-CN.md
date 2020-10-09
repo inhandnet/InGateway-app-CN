@@ -310,9 +310,9 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
 - 添加EtherNET/IP变量（**要求App版本为1.2.5及以上**）
   
-  在“设备列表”页面点击“添加变量”按钮，在添加变量弹出框中配置变量参数<font color=#FF0000>EtherNET/IP变量无须配置数据类型，Device Supervisor会自行判断数据的类型（目前支持的EIP数据类型包括`BOOL`、`SINT`、`INT`、`DINT`、`REAL`、`STRING`）</font>：
+  在“设备列表”页面点击“添加变量”按钮，在添加变量弹出框中配置变量参数。<font color=#FF0000>EtherNET/IP变量无须配置数据类型，Device Supervisor会自行判断数据的类型（目前支持的EIP数据类型包括`BOOL`、`SINT`、`INT`、`DINT`、`REAL`、`STRING`）</font>：
   - 变量名：变量名称<font color=#FF0000>（同一设备下变量名称不能重复）</font>    
-  - 标签：变量的标签  
+  - 标签：PLC中变量的标签  
   - 小数位：数据类型为浮点数时变量小数点后的数据长度，最大6位   
   - 读写权限：  
     - Read：只读，不可写  
@@ -498,7 +498,7 @@ Thingsboard的详细使用方法请查看[Thingsboard入门手册](https://thing
 
   ![](images/2020-05-16-19-36-03.png)
 
-- 订阅消息
+- 订阅消息:
   - `主题`：`v1/devices/me/rpc/request/+`
   - `Qos(MQTT)`：`1`
   - `主函数`：入口函数名称，本文档为`ctl_test`
@@ -976,13 +976,13 @@ Device Supervisor的数据采集配置总共包含四个CSV格式的配置文件
   """
   
   def vars_upload_test(data_collect, wizard_api): #定义发布主函数
-      global_parameter = wizard_api.get_global_parameter() #定义参数设置变量
-      logging.info(global_parameter) #打印参数设置变量
+      global_parameter = wizard_api.get_global_parameter() #定义自定义参数变量
+      logging.info(global_parameter) #打印自定义参数变量
       value_list = [] #定义数据列表
       for device, val_dict in data_collect['values'].items(): #遍历values字典，该字典中包含设备名称和设备下的变量数据
           value_dict = { #自定义数据字典
                         "Device": device,
-                        "DeviceID": global_parameter["device_id"], #获取全局变量中定义的设备ID
+                        "DeviceID": global_parameter["device_id"], #获取自定义参数中定义的设备ID
                         "timestamp": data_collect["timestamp"],
                         "Data": {}
                         }
@@ -1170,7 +1170,7 @@ Device Supervisor提供的api接口，包含以下方法：
   - `参数2`（可选参数`tail`）：可将需要传递给`参数1`的数据赋值给`参数2`
   - `参数3`（可选参数`timeout`）：立即读取所有变量的超时时间，数据类型为`整数`。默认为60秒
 
-- `get_global_parameter`：获取参数设置设置方法，使用示例请参考[发布示例6](#pub-example6)。该方法会返回一个参数设置设置的字典，数据格式如下：
+- `get_global_parameter`：获取全局参数方法，使用示例请参考[发布示例6](#pub-example6)。该方法会返回一个参数设置的字典，数据格式如下：
   
   ```python
   {
@@ -1354,12 +1354,13 @@ Device Supervisor提供的api接口，包含以下方法：
 
 ### 参数设置
 你可以访问“边缘计算 > 设备监控 > 参数设置”页面配置Device Supervisor的通用设置。  
-- 参数设置  
-  你可以在参数设置中设置Device Supervisor的系统参数或者自行添加通配符参数  
-  - `catch_recording`：最大可缓存的变量数据的MQTT消息数量，默认为`100000`  
-  - `log_level`：日志等级，设置不同的日志等级可以在Device Supervisor的日志中看到不同等级的日志信息。默认为`INFO`  
-  - `warning_recording`：最大可缓存的告警数据的MQTT消息数量，默认为`2000`  
-  - `自定义通配符`：你可以自行添加自定义参数作为云服务中的通配符使用。使用方法为`${参数名称}`，如下图所示：  
+- 默认参数
+  
+  你可以在默认参数中设置日志等级、历史告警和历史数据条数。
+
+- 自定义参数  
+
+  你可以在自定义参数中自行添加常用参数作为云服务中的通配符使用。使用方法为`${参数名称}`，如下图所示：  
   
     ![](images/2020-07-27-11-30-18.png)  
 
