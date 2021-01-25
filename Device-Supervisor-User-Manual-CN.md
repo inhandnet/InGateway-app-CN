@@ -167,7 +167,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   
   ![](images/2020-05-21-20-00-38.png)  
 
-- IG502如何安装并运行Python App请参考[I502安装和运行Python App](http://manual.ig.inhand.com.cn/zh_CN/latest/IG502-Quick-Start-Manual-CN.html#install-and-run-python-app)，Device Supervisor正常运行后如下图所示：  
+- IG502如何安装并运行Python App请参考[IG502安装和运行Python App](http://manual.ig.inhand.com.cn/zh_CN/latest/IG502-Quick-Start-Manual-CN.html#install-and-run-python-app)，Device Supervisor正常运行后如下图所示：  
   
   ![](images/2020-05-21-20-00-38.png)  
 
