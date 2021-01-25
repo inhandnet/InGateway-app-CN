@@ -1,6 +1,6 @@
 # Device Supervisor App用户手册
 Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷的数据采集、数据处理和数据上云功能，支持ISO on TCP、ModbusRTU等多种工业协议解析。
-本手册以采集PLC的数据并上传至Thingsboard云平台为例说明如何通过Device Supervisor App实现PLC数据采集和数据上云。以下将InGateway501简称为“IG501”；InGateway902简称为“IG902”。
+本手册以采集PLC的数据并上传至Thingsboard云平台为例说明如何通过Device Supervisor App实现PLC数据采集和数据上云。以下将InGateway501简称为“IG501”；InGateway902简称为“IG902”；InGateway502简称为“IG502”。
 
   - [概览](#overview)
   - [1.准备硬件设备及其数据采集环境](#prepare-hardware-equipment-and-its-data-collection-environment)
@@ -45,7 +45,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
 ## 概览
 使用过程中，您需要准备以下项：  
-- 边缘计算网关IG501/IG902  
+- 边缘计算网关IG501/IG502/IG902  
 - PLC设备  
 - 网线/串口线  
 - *更新软件版本所需的固件、SDK和App  
@@ -78,13 +78,19 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   
   接通IG902的电源并按照拓扑使用以太网线连接IG902和PLC。  
 
-  ![](images/2020-03-12-14-02-22.png)  
+  ![](images/2021-01-25-20-21-05.png)  
+
+- IG502以太网接线  
+  
+  接通IG502的电源并按照拓扑使用以太网线连接IG502和PLC。  
+
+  ![](images/2021-01-25-20-22-50.png)
 
 - IG501以太网接线  
   
   接通IG501的电源并按照拓扑使用以太网线连接IG501和PLC。  
 
-  ![](images/2020-03-12-14-03-03.png)  
+  ![](images/2021-01-25-20-23-12.png)  
 
 <a id="serial-wiring"> </a>  
 
@@ -93,17 +99,27 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
   接通IG902的电源并按照拓扑连接IG902和PLC。  
 
-  ![](images/2020-03-12-14-03-36.png)  
+  ![](images/2021-01-25-20-24-44.png)  
 
   IG902串口端子接线说明如下图：  
 
   ![](images/2020-06-11-15-58-40.png)  
 
+- IG502串口接线  
+
+  接通IG502的电源并按照拓扑连接IG502和PLC。  
+
+  ![](images/2021-01-25-20-25-52.png)  
+
+  IG502串口端子接线说明如下图：  
+
+  ![](images/2020-06-11-15-58-40.png)
+
 - IG501串口接线  
 
   接通IG501的电源并按照拓扑连接IG501和PLC。  
 
-  ![](images/2020-03-12-14-04-05.png)  
+  ![](images/2021-01-25-20-26-14.png)  
 
   IG501串口端子接线说明如下图：  
   
@@ -113,12 +129,14 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
 ### 1.2 设置InGateway访问PLC
 - IG902的GE 0/2口的默认IP地址为`192.168.2.1`。为了使IG902能够通过GE 0/2口访问以太网PLC，需要设置GE 0/2口与PLC处于同一网段，设置方法请参考[访问IG902](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#set-lan-parameters)。
+- IG502的LAN口的默认IP地址为`192.168.2.1`。为了使IG502能够通过LAN口访问以太网PLC，需要设置LAN口与PLC处于同一网段，设置方法请参考[访问IG502](http://manual.ig.inhand.com.cn/zh_CN/latest/IG502-Quick-Start-Manual-CN.html#set-lan-parameters)。
 - IG501的FE 0/1口的默认IP地址为`192.168.1.1`。为了使IG501能够通过FE 0/1口访问以太网PLC，需要设置FE 0/1口与PLC处于同一网段，设置方法请参考[访问IG501](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html#set-lan-parameters)。
 
 <a id="set-wan-network-parameters"> </a>  
 
 ### 1.3 设置InGateway联网
 - 设置IG902联网请参考[IG902连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#set-wan-parameters)。
+- 设置IG502联网请参考[IG502连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG502-Quick-Start-Manual-CN.html#set-wan-parameters)。
 - 设置IG501联网请参考[IG501连接Internet](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html#set-wan-parameters)。
 
 <a id="update-ingateway-device-software-version"> </a>  
@@ -127,7 +145,10 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 如需获取InGateway产品最新软件版本及其功能特性信息，请联系客服。如需更新软件版本，请参考如下链接：
 - [更新IG902软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#update-the-software)  
   
-  使用Device Supervisor时，IG902的固件版本应为`V2.0.0.r12537`及以上；SDK版本应为`py3sdk-V1.3.5`及以上。
+  使用Device Supervisor时，IG902的固件版本应为`V2.0.0.r12537`及以上；SDK版本应为`py3sdk-V1.4.2`及以上。
+- [更新IG502软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG502-Quick-Start-Manual-CN.html#update-the-software)  
+
+  使用Device Supervisor时，IG502的固件版本应为`V2.0.0.r13595`及以上；SDK版本应为`py3sdk-V1.4.2`及以上。
 - [更新IG501软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html#update-the-software)
   
   使用Device Supervisor时，IG501的固件版本应为`V2.0.0.r12884`及以上；SDK版本应为`py3sdk-V1.4.0`及以上。
@@ -143,6 +164,10 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
 ### 2.1 安装并运行Device Supervisor
 - IG902如何安装并运行Python App请参考[IG902安装和运行Python App](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#install-and-run-python-app)，Device Supervisor正常运行后如下图所示：  
+  
+  ![](images/2020-05-21-20-00-38.png)  
+
+- IG502如何安装并运行Python App请参考[I502安装和运行Python App](http://manual.ig.inhand.com.cn/zh_CN/latest/IG502-Quick-Start-Manual-CN.html#install-and-run-python-app)，Device Supervisor正常运行后如下图所示：  
   
   ![](images/2020-05-21-20-00-38.png)  
 
@@ -1006,7 +1031,7 @@ Device Supervisor的数据采集配置总共包含四个CSV格式的配置文件
   - `参数2`：该参数为接收到的数据，数据类型为`string`
   - `参数3`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)  
 
-以下是三个常见的自定义订阅方法示例：
+以下是四个常见的自定义订阅方法示例：
 
 <a id="sub-example1"> </a>
 
@@ -1376,7 +1401,7 @@ Device Supervisor提供的api接口，包含以下方法：
 <a id="other-configuration"> </a>  
 
 ### 网关的其他配置
-关于网关的其他常用操作请查看[IG501快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html)或[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html)。
+关于网关的其他常用操作请查看[IG501快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG501-Quick-Start-Manual-CN.html)、[IG502快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG502-Quick-Start-Manual-CN.html)或[IG902快速使用手册](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html)。
 
 <a id="thingsboard参考流程"> </a>  
 
