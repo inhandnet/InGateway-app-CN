@@ -124,7 +124,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   IG501串口端子接线说明如下图：  
   
   ![](images/2020-05-05-16-09-33.png)
- 
+
 <a id="set-lan-network-parameters"> </a>  
 
 ### 1.2 设置InGateway访问PLC
@@ -188,20 +188,26 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
 #### 2.2.1 添加PLC设备
 - 添加ISO on TCP通讯的PLC设备  
-  
+
   进入“边缘计算 > 设备监控 > 设备列表”页面，点击“添加PLC”按钮，在添加设备页面选择PLC协议为“ISO on TCP”并配置PLC的通讯参数。<font color=#FF0000>注意：设备名称不能重复。</font>  
-  
+
   下图是添加S7-1500、S7-1200、S7-400、S7-300、S7-200 Smart系列PLC的示例（模式选择`Rack/Slot`）。除PLC为S7-200 Smart时机架号和槽号需要配置为0，1；其余类型的S7系列PLC默认使用0，0即可：
 
   ![](images/2020-05-24-16-13-17.png)  
 
-  下图是添加S7-200和西门子LOGO系列PLC的示例（模式选择`TSAP`）：
+  - 下图是添加S7-200和西门子LOGO系列PLC的示例（模式选择`TSAP`）：
 
   ![](images/2020-05-24-16-18-28.png)
 
-  添加成功后如下图所示：  
+  - 下图是添加smart 200PLC的示例（模式选择`TSAP`）：
 
-  ![](images/2020-05-20-17-33-37.png)  
+    ![image-20210517133235488](images/image-20210517133235488.png)
+
+    添加成功后如下图所示：  
+
+    ![](images/2020-05-20-17-33-37.png)
+
+    
 
 - 添加ModbusTCP通讯的PLC设备  
   
@@ -268,7 +274,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   - `单位`：变量单位  
   - `描述`：变量描述  
   - `所属分组`：变量所属的采集组  
-   
+  
   下图是添加一个地址为%I0.0的开关变量的例子：  
 
   ![](images/2020-05-20-17-38-05.png)  
@@ -428,10 +434,11 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 
   ![](images/2020-05-12-18-52-58.png)  
   
+
 <a id="monitor-plc-data"> </a>  
 
 ## 3.上报和监控PLC数据 
-  
+
   - [3.1 本地监控PLC数据](#local-monitor-plc-data)
   - [3.2 云平台监控PLC数据](#monitor-plc-data-on-thingsboard)
 
@@ -471,6 +478,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   
   ![](images/2020-05-13-09-41-00.png)  
   
+
 <a id="monitor-plc-data-on-thingsboard"> </a>  
 
 ### 3.2 云平台监控PLC数据
@@ -718,7 +726,7 @@ Device Supervisor的数据采集配置总共包含四个CSV格式的配置文件
               }
           }
       }
-      ```  
+      ```
 
   - `参数2`：该参数为Device Supervisor提供的api接口，参数说明见[Device Supervisor的api接口说明（wizard_api）](#device_supervisor_api_description)  
 
@@ -729,7 +737,7 @@ Device Supervisor的数据采集配置总共包含四个CSV格式的配置文件
 - 发布示例1：使用`return`方式上传变量数据  
   
   本示例实现了使用`return`方式上传变量数据，将处理后的变量数据使用`return`命令发送给Device Supervisor。Device Supervisor自行根据发布中配置的主题和Qos将变量数据按照采集时间顺序上传至MQTT服务器。如果发送失败则缓存变量数据等待MQTT连接正常后按采集时间顺序上传至MQTT服务器。发布和代码配置示例如下：  
-    
+  
   ![](images/2020-05-16-09-51-27.png)  
 
   ```python
@@ -753,7 +761,7 @@ Device Supervisor的数据采集配置总共包含四个CSV格式的配置文件
           value_list.append(value_dict) #依次将value_dict添加到value_list中
       logging.info(value_list) #在App日志中打印value_list，数据格式为[{'Device': 'S7-1200', 'timestamp': 1589538347.5604711, 'Data': {'Test1': False, 'Test2': 12}}]
       return value_list #将value_list发送给App，App将自行按照采集时间顺序上传至MQTT服务器。如果发送失败则缓存数据等待连接恢复后按采集时间顺序上传至MQTT服务器
-    ```  
+  ```
 
 <a id="pub-example2"> </a>
 
@@ -1410,7 +1418,8 @@ Device Supervisor提供的api接口，包含以下方法：
 - [添加设备和资产](#添加设备和资产)
 - [传输PLC数据到Thingsboard设备](#传输plc数据到thingsboard设备)
 - [配置可视化仪表板](#配置可视化仪表板)  
-   
+  
+
 <a id="添加设备和资产"> </a>  
 
 #### 添加设备和资产
@@ -1447,7 +1456,7 @@ Device Supervisor提供的api接口，包含以下方法：
   ![](images/2020-05-24-14-25-40.png)  
 
 <a id="传输plc数据到thingsboard设备"> </a>  
-  
+
 #### 传输PLC数据到Thingsboard设备
 资产和设备配置完成后，复制已添加设备的访问令牌并粘贴至网关的云服务页面的用户名参数中以将数据传输至Thingsboard中的`S7-1200`设备。  
 
@@ -1552,11 +1561,11 @@ Device Supervisor提供的api接口，包含以下方法：
 
 ### 查看云服务脚本是否正确  
   打开Device Supervisor App日志。脚本编写完成并点击“确定”后，通过日志中的`Build module: <主函数名称>, type: <publish/subscribe>`信息查看脚本是否构建成功。  
-  
+
   脚本构建成功如下图所示：  
 
   ![](images/2020-05-18-17-20-05.png)  
-  
+
   脚本构建失败如下图所示：  
 
   ![](images/2020-05-18-17-22-30.png)  
@@ -1565,5 +1574,5 @@ Device Supervisor提供的api接口，包含以下方法：
 
 ### 查看App的云服务输出是否正确  
   您可以使用使用`logger`和`logging`输出重要日志。下图是在运行脚本中的第6行使用了`logging.info`方法，在日志中可以通过搜索`<string> 6`查看输出结果是否符合预期。  
-  
+
   ![](images/2020-05-18-17-25-03.png) 
