@@ -191,11 +191,11 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
   
   进入“边缘计算 > 设备监控 > 设备列表”页面，点击“添加PLC”按钮，在添加设备页面选择PLC协议为“ISO on TCP”并配置PLC的通讯参数。<font color=#FF0000>注意：设备名称不能重复。</font>  
   
-  下图是添加S7-1500、S7-1200、S7-400、S7-300、S7-200 Smart系列PLC的示例（模式选择`Rack/Slot`）。除PLC为S7-200 Smart时机架号和槽号需要配置为0，1；其余类型的S7系列PLC默认使用0，0即可：
+  下图是添加S7-1500、S7-1200、S7-400和S7-300系列PLC的示例（模式选择`Rack/Slot`）。机架号和槽号默认使用0，0即可：
 
   ![](images/2020-05-24-16-13-17.png)  
 
-  下图是添加S7-200和西门子LOGO系列PLC的示例（模式选择`TSAP`）：
+  下图是添加S7-200、S7-200 Smart和西门子LOGO系列PLC的示例（模式选择`TSAP`）。<font color=#FF0000>注意：添加S7-200 Smart时，客户端TSAP配置为02.00，服务端TSAP配置为02.01；其余系列根据实际情况配置。</font>
 
   ![](images/2020-05-24-16-18-28.png)
 
