@@ -50,3 +50,4 @@ Device Supervisor App为用户提供了便捷且可靠的数据采集、数据�
    AliyunIoT-CN.md
    AWSIoT-CN.md
    AzureIoT-CN.md
+   DeviceSupervisor-2.0-Upgrade-Notes.md
