@@ -142,7 +142,7 @@ Device Supervisor App（以下简称Device Supervisor）为用户提供了便捷
 <a id="update-ingateway-device-software-version"> </a>  
 
 ### 1.4 更新InGateway设备软件版本
-如需获取InGateway产品最新软件版本及其功能特性信息，请联系客服。如需更新软件版本，请参考如下链接：
+如需获取InGateway产品最新软件版本及其功能特性信息，请访问[资源中心](https://www.inhand.com.cn/downlist/edge-computing-gateway/)。如需更新软件版本，请参考如下链接：
 - [更新IG902软件版本](http://manual.ig.inhand.com.cn/zh_CN/latest/IG902-Quick-Start-Manual-CN.html#update-the-software)  
   
   使用Device Supervisor时，IG902的固件版本应为`V2.0.0.r12537`及以上；SDK版本应为`py3sdk-V1.4.2`及以上。
