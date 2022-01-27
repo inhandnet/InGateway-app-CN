@@ -46,6 +46,7 @@ Device Supervisor App为用户提供了便捷且可靠的数据采集、数据�
    :maxdepth: 2
    :caption: 用户手册
 
+   Device-Supervisor-User-Manual-CN - V2.0.md
    Device-Supervisor-User-Manual-CN.md
    AliyunIoT-CN.md
    AWSIoT-CN.md
